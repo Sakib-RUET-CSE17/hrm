@@ -42,6 +42,11 @@ class Employee
         $this->payrolls = new ArrayCollection();
     }
 
+    public function __toString(): string
+    {
+        return $this->name.' '.$this->designation;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

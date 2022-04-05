@@ -20,7 +20,7 @@ class Attendance
     #[ORM\Column(type: 'datetime_immutable')]
     private $entryTime;
 
-    #[ORM\Column(type: 'datetime_immutable')]
+    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private $leaveTime;
 
     public function getId(): ?int
