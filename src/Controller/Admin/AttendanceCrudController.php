@@ -8,6 +8,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\DateTimeFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
 
 class AttendanceCrudController extends AbstractCrudController
@@ -29,7 +30,9 @@ class AttendanceCrudController extends AbstractCrudController
     public function configureFilters(Filters $filters): Filters
     {
         return $filters
-            ->add(EntityFilter::new('employee'));
+            ->add(EntityFilter::new('employee'))
+            ->add(DateTimeFilter::new('entryTime'))
+            ->add(DateTimeFilter::new('leaveTime'));
     }
 
     public function configureFields(string $pageName): iterable

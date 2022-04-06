@@ -23,6 +23,7 @@ class EmployeeCrudController extends AbstractCrudController
         yield TextField::new('mobile');
         yield DateField::new('hireDate');
         yield TextField::new('mobile');
+        yield TextField::new('designation');
         if (Crud::PAGE_NEW !== $pageName && Crud::PAGE_EDIT !== $pageName) {
             yield AssociationField::new('salary');
         }
