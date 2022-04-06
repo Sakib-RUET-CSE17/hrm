@@ -23,7 +23,7 @@ class AttendanceCrudController extends AbstractCrudController
         return $crud
             ->setEntityLabelInSingular('Employee Attendance')
             ->setEntityLabelInPlural('Employee Attendances')
-            ->setSearchFields(['employee', 'entryTime', 'leaveTime'])
+            ->setSearchFields(['employee.name', 'employee.designation', 'entryTime', 'leaveTime'])
             ->setDefaultSort(['entryTime' => 'DESC']);
     }
 
