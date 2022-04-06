@@ -6,7 +6,6 @@ use App\Entity\Attendance;
 use App\Repository\AttendanceRepository;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Exception;
-use Symfony\Component\Messenger\MessageBusInterface;
 
 class AttendanceEntityListener
 {
@@ -25,8 +24,4 @@ class AttendanceEntityListener
             throw new Exception('Leave time must be greater than entryTime');
         }
     }
-
-    // public function postPersist(RentRequest $rentRequest, LifecycleEventArgs $event){
-    //     $this->bus->dispatch(new RentRequestMessage($rentRequest->getId()));
-    // }
 }

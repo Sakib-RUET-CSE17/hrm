@@ -23,12 +23,26 @@ class PayrollCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         yield AssociationField::new('employee');
-        yield NumberField::new('month');
-        yield NumberField::new('year');
+        yield ChoiceField::new('month')
+            ->setChoices([
+                'January' => 1,
+                'February' => 2,
+                'March' => 3,
+                'April' => 4,
+                'May' => 5,
+                'June' => 6,
+                'July' => 7,
+                'August' => 8,
+                'September' => 9,
+                'October' => 10,
+                'November' => 11,
+                'December' => 12,
+            ]);
+        yield 'year';
         if (Crud::PAGE_EDIT !== $pageName && Crud::PAGE_NEW !== $pageName) {
             yield TextField::new('employee.getSalary');
         }
-        yield BooleanField::new('status')->setLabel('isApproved');
+        yield BooleanField::new('status')->setLabel('Approved');
         yield BooleanField::new('paymentStatus')->setLabel('Paid');
     }
 }
