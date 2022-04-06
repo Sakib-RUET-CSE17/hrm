@@ -23,8 +23,7 @@ class AttendanceCrudController extends AbstractCrudController
             ->setEntityLabelInSingular('Employee Attendance')
             ->setEntityLabelInPlural('Employee Attendances')
             ->setSearchFields(['employee', 'entryTime', 'leaveTime'])
-            ->setDefaultSort(['entryTime' => 'DESC'])
-        ;
+            ->setDefaultSort(['entryTime' => 'DESC']);
     }
 
     public function configureFilters(Filters $filters): Filters
@@ -32,7 +31,7 @@ class AttendanceCrudController extends AbstractCrudController
         return $filters
             ->add(EntityFilter::new('employee'));
     }
-    
+
     public function configureFields(string $pageName): iterable
     {
         yield AssociationField::new('employee');
@@ -61,11 +60,8 @@ class AttendanceCrudController extends AbstractCrudController
             'years' => range(date('Y'), date('Y') + 5),
             'widget' => 'single_text',
         ]);
-        if (Crud::PAGE_EDIT === $pageName) {
-            yield $leaveTime->setFormTypeOption('disabled', true);
-        } else {
+        if (Crud::PAGE_EDIT === $pageName || Crud::PAGE_NEW !== $pageName) {
             yield $leaveTime;
         }
     }
-    
 }

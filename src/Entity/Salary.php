@@ -26,6 +26,11 @@ class Salary
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $paymentMethod;
 
+    public function __toString(): string
+    {
+        return $this->amount;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
