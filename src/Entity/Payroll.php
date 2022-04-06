@@ -17,9 +17,6 @@ class Payroll
     #[ORM\JoinColumn(nullable: false)]
     private $employee;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private $status;
-
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $paymentStatus;
 
@@ -28,6 +25,9 @@ class Payroll
 
     #[ORM\Column(type: 'integer')]
     private $year;
+
+    #[ORM\Column(type: 'boolean')]
+    private $status;
 
     public function getId(): ?int
     {
@@ -42,18 +42,6 @@ class Payroll
     public function setEmployee(?Employee $employee): self
     {
         $this->employee = $employee;
-
-        return $this;
-    }
-
-    public function getStatus(): ?string
-    {
-        return $this->status;
-    }
-
-    public function setStatus(string $status): self
-    {
-        $this->status = $status;
 
         return $this;
     }
@@ -90,6 +78,18 @@ class Payroll
     public function setYear(int $year): self
     {
         $this->year = $year;
+
+        return $this;
+    }
+
+    public function getStatus(): ?bool
+    {
+        return $this->status;
+    }
+
+    public function setStatus(bool $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }
