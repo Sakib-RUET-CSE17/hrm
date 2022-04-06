@@ -21,7 +21,7 @@ class Salary
     private $amount;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $disbersementType;
+    private $disbursementType;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $paymentMethod;
@@ -55,14 +55,14 @@ class Salary
         return $this;
     }
 
-    public function getDisbersementType(): ?string
+    public function getDisbursementType(): ?string
     {
-        return $this->disbersementType;
+        return $this->disbursementType;
     }
 
-    public function setDisbersementType(?string $disbersementType): self
+    public function setDisbursementType(?string $disbursementType): self
     {
-        $this->disbersementType = $disbersementType;
+        $this->disbursementType = $disbursementType;
 
         return $this;
     }

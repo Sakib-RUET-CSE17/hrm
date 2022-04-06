@@ -49,9 +49,9 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linktoRoute('Back to the website', 'fas fa-home', 'homepage');
-        yield MenuItem::linkToCrud('Employees', 'fas fa-map-marker-alt', Employee::class);
-        yield MenuItem::linkToCrud('Salaries', 'fas fa-comments', Salary::class);
-        yield MenuItem::linkToCrud('Payrolls', 'fas fa-comments', Payroll::class);
-        yield MenuItem::linkToCrud('Attendances', 'fas fa-comments', Attendance::class);
+        yield MenuItem::linkToCrud('Employees', 'fas fa-user', Employee::class);
+        yield MenuItem::linkToCrud('Salaries', 'fas fa-money-check', Salary::class);
+        yield MenuItem::linkToCrud('Payrolls', 'fas fa-clipboard-check', Payroll::class);
+        yield MenuItem::linkToCrud('Attendances', 'fas fa-calendar', Attendance::class);
     }
 }

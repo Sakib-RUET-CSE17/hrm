@@ -56,6 +56,16 @@ class AttendanceCrudController extends AbstractCrudController
         } else {
             yield $entryTime;
         }
+        $leaveTime = DateTimeField::new('leaveTime')->setFormTypeOptions([
+            'html5' => true,
+            'years' => range(date('Y'), date('Y') + 5),
+            'widget' => 'single_text',
+        ]);
+        if (Crud::PAGE_EDIT === $pageName) {
+            yield $leaveTime->setFormTypeOption('disabled', true);
+        } else {
+            yield $leaveTime;
+        }
     }
     
 }
