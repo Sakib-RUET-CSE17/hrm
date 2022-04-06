@@ -7,6 +7,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * @method Payroll|null find($id, $lockMode = null, $lockVersion = null)
@@ -20,6 +21,29 @@ class PayrollRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Payroll::class);
     }
+
+    public function countEmployees(array $employees): int
+    {
+        return count($employees);
+    }
+
+    // public function deleteOldRejected(): int
+    // {
+    //     return $this->getOldRejectedQueryBuilder()->delete()->getQuery()->execute();
+    // }
+
+    // private function getOldRejectedQueryBuilder(): QueryBuilder
+    // {
+    //     return $this->createQueryBuilder('c')
+    //         ->andWhere('c.state = :state_rejected or c.state = :state_spam')
+    //         ->andWhere('c.createdAt < :date')
+    //         ->setParameters([
+    //             'state_rejected' => 'rejected',
+    //             'state_spam' => 'spam',
+    //             'date' => new \DateTimeImmutable(-self::DAYS_BEFORE_REJECTED_REMOVAL.' days'),
+    //         ])
+    //     ;
+    // }
 
     /**
      * @throws ORMException
