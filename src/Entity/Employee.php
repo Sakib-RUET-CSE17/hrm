@@ -36,6 +36,15 @@ class Employee
     #[ORM\OneToMany(mappedBy: 'employee', targetEntity: Payroll::class, orphanRemoval: true)]
     private $payrolls;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $nid;
+
+    #[ORM\Column(type: 'date', nullable: true)]
+    private $birthDate;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $gender;
+
     public function __construct()
     {
         $this->attendances = new ArrayCollection();
@@ -173,6 +182,42 @@ class Employee
                 $payroll->setEmployee(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNid(): ?string
+    {
+        return $this->nid;
+    }
+
+    public function setNid(?string $nid): self
+    {
+        $this->nid = $nid;
+
+        return $this;
+    }
+
+    public function getBirthDate(): ?\DateTimeInterface
+    {
+        return $this->birthDate;
+    }
+
+    public function setBirthDate(?\DateTimeInterface $birthDate): self
+    {
+        $this->birthDate = $birthDate;
+
+        return $this;
+    }
+
+    public function getGender(): ?string
+    {
+        return $this->gender;
+    }
+
+    public function setGender(?string $gender): self
+    {
+        $this->gender = $gender;
 
         return $this;
     }
