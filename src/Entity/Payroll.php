@@ -29,6 +29,9 @@ class Payroll
     #[ORM\Column(type: 'boolean', nullable: true)]
     private $paymentStatus;
 
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private $grossPayable;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +93,18 @@ class Payroll
     public function setPaymentStatus(bool $paymentStatus): self
     {
         $this->paymentStatus = $paymentStatus;
+
+        return $this;
+    }
+
+    public function getGrossPayable(): ?int
+    {
+        return $this->grossPayable;
+    }
+
+    public function setGrossPayable(?int $grossPayable): self
+    {
+        $this->grossPayable = $grossPayable;
 
         return $this;
     }

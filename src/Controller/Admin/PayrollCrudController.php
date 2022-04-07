@@ -32,10 +32,10 @@ class PayrollCrudController extends AbstractCrudController
 
     public function configureFilters(Filters $filters): Filters
     {
-        $years=range(date('Y')-5, date('Y') + 5);
-        $yearsRange[date('Y')]=date('Y');
-        foreach($years as $year){
-            $yearsRange[$year] =$year;
+        $years = range(date('Y') - 5, date('Y') + 5);
+        $yearsRange[date('Y')] = date('Y');
+        foreach ($years as $year) {
+            $yearsRange[$year] = $year;
         }
         return $filters
             ->add('employee')
@@ -54,7 +54,6 @@ class PayrollCrudController extends AbstractCrudController
                 'December' => 12,
             ]))
             ->add(ChoiceFilter::new('year')->setChoices($yearsRange));
-
     }
 
     public function configureFields(string $pageName): iterable
@@ -76,9 +75,11 @@ class PayrollCrudController extends AbstractCrudController
                 'December' => 12,
             ]);
         yield 'year';
-        if (Crud::PAGE_EDIT !== $pageName && Crud::PAGE_NEW !== $pageName) {
-            yield TextField::new('employee.getSalary');
-        }
+
+        yield NumberField::new('employee.getSalary.getAmount')
+            ->setLabel('Salary Before Adjustment')
+            ->onlyOnIndex();
+        yield NumberField::new('grossPayable');
         yield BooleanField::new('status')->setLabel('Approved');
         yield BooleanField::new('paymentStatus')->setLabel('Paid');
     }

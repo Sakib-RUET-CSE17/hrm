@@ -48,6 +48,7 @@ class PaySlipGenerateCommand extends Command
             $payroll->setEmployee($employee)
                 ->setMonth($month)
                 ->setYear($year)
+                ->setGrossPayable($employee->getSalary()->getAmount())
                 ->setStatus(false)
                 ->setPaymentStatus(false);
             $this->entityManager->persist($payroll);
