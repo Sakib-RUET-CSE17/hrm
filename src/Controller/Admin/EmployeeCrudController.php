@@ -24,8 +24,8 @@ class EmployeeCrudController extends AbstractCrudController
         yield TextField::new('name');
 
         yield ImageField::new('profilePictureFilename')
-            ->setBasePath('/')
-            ->setUploadDir('public/')
+            ->setBasePath('/images')
+            ->setUploadDir('public/images')
             ->setUploadedFileNamePattern('[randomhash].[extension]')
             ->setLabel('Profile Picture');
 
