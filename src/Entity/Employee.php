@@ -45,6 +45,9 @@ class Employee
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $gender;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $profilePictureFilename;
+
     public function __construct()
     {
         $this->attendances = new ArrayCollection();
@@ -218,6 +221,18 @@ class Employee
     public function setGender(?string $gender): self
     {
         $this->gender = $gender;
+
+        return $this;
+    }
+
+    public function getProfilePictureFilename(): ?string
+    {
+        return $this->profilePictureFilename;
+    }
+
+    public function setProfilePictureFilename(?string $profilePictureFilename): self
+    {
+        $this->profilePictureFilename = $profilePictureFilename;
 
         return $this;
     }
