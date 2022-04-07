@@ -8,8 +8,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use Symfony\Component\Validator\Constraints\Choice;
 
 class EmployeeCrudController extends AbstractCrudController
 {
@@ -22,13 +22,19 @@ class EmployeeCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         yield TextField::new('name');
+
+        yield ImageField::new('profilePictureFilename')
+            ->setBasePath('/')
+            ->setUploadDir('public/')
+            ->setUploadedFileNamePattern('[randomhash].[extension]')
+            ->setLabel('Profile Picture');
+
         yield TextField::new('mobile');
         yield TextField::new('nid')->setLabel('NID');
         yield 'birthDate';
         yield ChoiceField::new('gender')->setChoices(['Male' => 'M', 'Female' => 'F']);
         yield DateField::new('hireDate');
-        yield TextField::new('designation');
-
+        yield AssociationField::new('designation');
         yield AssociationField::new('salary')->onlyOnIndex();
     }
 }

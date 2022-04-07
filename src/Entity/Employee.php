@@ -24,9 +24,6 @@ class Employee
     #[ORM\Column(type: 'date', nullable: true)]
     private $hireDate;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $designation;
-
     #[ORM\OneToOne(mappedBy: 'employee', targetEntity: Salary::class, cascade: ['persist', 'remove'])]
     private $salary;
 
@@ -48,6 +45,9 @@ class Employee
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $profilePictureFilename;
 
+    #[ORM\ManyToOne(targetEntity: Designation::class, inversedBy: 'employees')]
+    private $designation;
+
     public function __construct()
     {
         $this->attendances = new ArrayCollection();
@@ -56,7 +56,7 @@ class Employee
 
     public function __toString(): string
     {
-        return $this->name.' '.$this->designation;
+        return $this->name;
     }
 
     public function getId(): ?int
@@ -96,18 +96,6 @@ class Employee
     public function setHireDate(?\DateTimeInterface $hireDate): self
     {
         $this->hireDate = $hireDate;
-
-        return $this;
-    }
-
-    public function getDesignation(): ?string
-    {
-        return $this->designation;
-    }
-
-    public function setDesignation(?string $designation): self
-    {
-        $this->designation = $designation;
 
         return $this;
     }
@@ -233,6 +221,18 @@ class Employee
     public function setProfilePictureFilename(?string $profilePictureFilename): self
     {
         $this->profilePictureFilename = $profilePictureFilename;
+
+        return $this;
+    }
+
+    public function getDesignation(): ?Designation
+    {
+        return $this->designation;
+    }
+
+    public function setDesignation(?Designation $designation): self
+    {
+        $this->designation = $designation;
 
         return $this;
     }

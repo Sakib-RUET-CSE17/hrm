@@ -22,6 +22,11 @@ class PayrollRepository extends ServiceEntityRepository
         parent::__construct($registry, Payroll::class);
     }
 
+    public function findAll(): array
+    {
+        return $this->findBy([], ['year' => 'DESC', 'month' => 'DESC']);
+    }
+
     public function countEmployees(array $employees): int
     {
         return count($employees);

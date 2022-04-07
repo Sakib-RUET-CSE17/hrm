@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Attendance;
+use App\Entity\Designation;
 use App\Entity\Employee;
 use App\Entity\Payroll;
 use App\Entity\Salary;
@@ -50,6 +51,7 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linktoRoute('Back to the website', 'fas fa-home', 'homepage');
         yield MenuItem::linkToCrud('Employees', 'fas fa-user', Employee::class);
+        yield MenuItem::linkToCrud('Designations', 'fas fa-pen', Designation::class);
         yield MenuItem::linkToCrud('Salaries', 'fas fa-money-check', Salary::class);
         yield MenuItem::linkToCrud('Payrolls', 'fas fa-clipboard-check', Payroll::class);
         yield MenuItem::linkToCrud('Attendances', 'fas fa-calendar', Attendance::class);
