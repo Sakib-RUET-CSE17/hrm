@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\SalaryRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SalaryRepository::class)]
@@ -18,6 +19,7 @@ class Salary
     private $employee;
 
     #[ORM\Column(type: 'integer', nullable: true)]
+    #[Assert\GreaterThan(0)]
     private $amount;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]

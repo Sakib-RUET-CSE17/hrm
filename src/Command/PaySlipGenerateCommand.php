@@ -33,7 +33,7 @@ class PaySlipGenerateCommand extends Command
     {
         $this
             ->setDescription('Insert payslip to the database')
-            ->addOption('dry-run', null, InputOption::VALUE_NONE, 'Dry run')
+            // ->addOption('dry-run', null, InputOption::VALUE_NONE, 'Dry run')
             ->addArgument('month', InputArgument::OPTIONAL, 'Which month?')
             ->addArgument('year', InputArgument::OPTIONAL, 'Which year?');
     }
@@ -43,7 +43,7 @@ class PaySlipGenerateCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
         // if ($input->getOption('dry-run')) {
-        $io->note('Dry mode enabled');
+        // $io->note('Dry mode enabled');
 
         $payrolls = $this->payrollRepository->findAll();
         $month = $input->getArgument('month');

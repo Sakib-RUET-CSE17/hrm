@@ -3,7 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\PayrollRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\PropertyAccess\PropertyPath;
 
 #[ORM\Entity(repositoryClass: PayrollRepository::class)]
 class Payroll
@@ -27,6 +29,10 @@ class Payroll
     private $status;
 
     #[ORM\Column(type: 'boolean', nullable: true)]
+    #[Assert\Expression(
+        "this.getStatus() == this.getPaymentStatus() or value == false",
+        message: "Should be approved first",
+    )]
     private $paymentStatus;
 
     #[ORM\Column(type: 'integer', nullable: true)]

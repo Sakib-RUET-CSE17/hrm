@@ -19,9 +19,14 @@ class Attendance
     private $employee;
 
     #[ORM\Column(type: 'datetime_immutable')]
+    #[Assert\GreaterThanOrEqual("today +9 hours")]
     private $entryTime;
 
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
+    #[Assert\Expression(
+        "this.getLeaveTime() > this.getEntryTime() or value == null",
+        message: "Leave time must be greater than entry Time"
+    )]
     private $leaveTime;
 
     public function getId(): ?int
