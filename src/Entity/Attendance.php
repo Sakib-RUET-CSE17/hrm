@@ -29,6 +29,14 @@ class Attendance
     )]
     private $leaveTime;
 
+    #[ORM\ManyToOne(targetEntity: AttendanceHistory::class, inversedBy: 'attendances')]
+    private $attendanceHistory;
+
+    public function __toString(): string
+    {
+        return $this->employee;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -66,6 +74,18 @@ class Attendance
     public function setLeaveTime(\DateTimeImmutable $leaveTime): self
     {
         $this->leaveTime = $leaveTime;
+
+        return $this;
+    }
+
+    public function getAttendanceHistory(): ?AttendanceHistory
+    {
+        return $this->attendanceHistory;
+    }
+
+    public function setAttendanceHistory(?AttendanceHistory $attendanceHistory): self
+    {
+        $this->attendanceHistory = $attendanceHistory;
 
         return $this;
     }

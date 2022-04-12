@@ -27,6 +27,6 @@ services:
     # App\EntityListener\AttendanceEntityListener:
     #     tags:
     #         - { name: 'doctrine.orm.entity_listener', event: 'preUpdate', entity: 'App\Entity\Attendance'}
-    # App\EntityListener\PayrollEntityListener:
-    #     tags:
-    #         - { name: 'doctrine.orm.entity_listener', event: 'preUpdate', entity: 'App\Entity\Payroll'}
+    App\EntityListener\AttendanceEntityListener:
+        tags:
+            - { name: 'doctrine.orm.entity_listener', event: 'prePersist', entity: 'App\Entity\Attendance'}

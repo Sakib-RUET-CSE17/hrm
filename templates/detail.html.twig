@@ -1,0 +1,29 @@
+{% extends '@EasyAdmin/crud/detail.html.twig' %}
+
+{% block detail_fields %}
+	{% dump(entity.fields|first.value|date('d-m-Y')) %}
+	{% dump(entity.fields|slice(1, 1)) %}
+	<h6>Date:
+		{{entity.fields|first.value|date('d-m-Y')}}</h6>
+
+	<table class="table table-light">
+		<thead>
+			<tr>
+				<th scope="col">ID</th>
+				<th scope="col">Employee</th>
+				<th scope="col">Entry</th>
+				<th scope="col">Leave</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for attendance in entity.fields|slice(1, 1)|first.value %}
+				<tr>
+					<th scope="row">{{ attendance.id }}</th>
+					<td>{{ attendance.employee }}</td>
+					<td>{{ attendance.entryTime|date('h:i a') }}</td>
+					<td>{{ attendance.leaveTime?attendance.leaveTime|date('h:i a'):'--' }}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}
