@@ -19,7 +19,7 @@ class Payroll
     #[ORM\JoinColumn(nullable: false)]
     private $employee;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: 'integer', nullable: true)]
     private $month;
 
     #[ORM\Column(type: 'integer')]
@@ -38,9 +38,20 @@ class Payroll
     #[ORM\Column(type: 'integer', nullable: true)]
     private $grossPayable;
 
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private $week;
+
+    #[ORM\ManyToOne(targetEntity: PayslipHistory::class, inversedBy: 'payrolls')]
+    private $payslipHistory;
+
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function __toString(): string
+    {
+        return $this->employee;
     }
 
     public function getEmployee(): ?Employee
@@ -111,6 +122,30 @@ class Payroll
     public function setGrossPayable(?int $grossPayable): self
     {
         $this->grossPayable = $grossPayable;
+
+        return $this;
+    }
+
+    public function getWeek(): ?int
+    {
+        return $this->week;
+    }
+
+    public function setWeek(?int $week): self
+    {
+        $this->week = $week;
+
+        return $this;
+    }
+
+    public function getPayslipHistory(): ?PayslipHistory
+    {
+        return $this->payslipHistory;
+    }
+
+    public function setPayslipHistory(?PayslipHistory $payslipHistory): self
+    {
+        $this->payslipHistory = $payslipHistory;
 
         return $this;
     }

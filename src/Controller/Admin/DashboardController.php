@@ -7,6 +7,7 @@ use App\Entity\AttendanceHistory;
 use App\Entity\Designation;
 use App\Entity\Employee;
 use App\Entity\Payroll;
+use App\Entity\PayslipHistory;
 use App\Entity\Salary;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -55,6 +56,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Designations', 'fas fa-pen', Designation::class);
         yield MenuItem::linkToCrud('Salaries', 'fas fa-money-check', Salary::class);
         yield MenuItem::linkToCrud('Payrolls', 'fas fa-clipboard-check', Payroll::class);
+        yield MenuItem::linkToCrud('Payslip History', 'fas fa-clipboard-check', PayslipHistory::class);
         yield MenuItem::linkToCrud('Attendances', 'fas fa-calendar', Attendance::class);
         yield MenuItem::linkToCrud('Attendance History', 'fas fa-calendar', AttendanceHistory::class);
     }

@@ -59,6 +59,8 @@ class PayrollCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         yield AssociationField::new('employee');
+        yield ChoiceField::new('week')
+            ->setChoices(array_combine(range(1, 52), range(1, 52)));
         yield ChoiceField::new('month')
             ->setChoices([
                 'January' => 1,
@@ -80,6 +82,9 @@ class PayrollCrudController extends AbstractCrudController
             ->setLabel('Salary Before Adjustment')
             ->onlyOnIndex();
         yield NumberField::new('grossPayable');
+        yield TextField::new('employee.getSalary.getDisbursementType')
+            ->setLabel('Disbursement Type')
+            ->hideOnForm();
         yield BooleanField::new('status')->setLabel('Approved');
         yield BooleanField::new('paymentStatus')->setLabel('Paid');
     }

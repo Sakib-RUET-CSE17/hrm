@@ -5,6 +5,7 @@ namespace App\Command;
 use App\Entity\Payroll;
 use App\Repository\EmployeeRepository;
 use App\Repository\PayrollRepository;
+use App\Repository\SalaryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -13,17 +14,18 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-class PaySlipGenerateCommand extends Command
+class PaySlipGenerateCommandMonthly extends Command
 {
-    private $employeeRepository;
+    // private $employeeRepository;
+    private $salaryRepository;
     private $payrollRepository;
     private $entityManager;
 
-    protected static $defaultName = 'app:payslip:generate';
+    protected static $defaultName = 'app:payslip:generateMonth';
 
-    public function __construct(EmployeeRepository $employeeRepository, EntityManagerInterface $entityManager, PayrollRepository $payrollRepository)
+    public function __construct(SalaryRepository $salaryRepository, EntityManagerInterface $entityManager, PayrollRepository $payrollRepository)
     {
-        $this->employeeRepository = $employeeRepository;
+        $this->salaryRepository = $salaryRepository;
         $this->payrollRepository = $payrollRepository;
         $this->entityManager = $entityManager;
         parent::__construct();
@@ -56,23 +58,24 @@ class PaySlipGenerateCommand extends Command
         }
         if (isset($payrolls[0])) {
             foreach ($payrolls as $payroll) {
-                if ($payroll->getMonth() == $month && $payroll->getYear() == $year) {
+                if ($payroll->getEmployee()->getSalary()->getDisbursementType() == 'monthly' && $payroll->getMonth() == $month && $payroll->getYear() == $year) {
                     $io->error(sprintf("Already Generated for month %d and year %d!\n
                     Inserted 0 employees payslip.", $month, $year));
                     return 0;
                 }
-            } 
+            }
         }
 
-        $employees = $this->employeeRepository->findAll();
-        $count = count($employees);
+        $salaries = $this->salaryRepository->findBy(['disbursementType' => 'monthly']);
+        $count = count($salaries);
 
-        foreach ($employees as $employee) {
+        foreach ($salaries as $salary) {
+            $employee = $salary->getEmployee();
             $payroll = new Payroll();
             $payroll->setEmployee($employee)
                 ->setMonth($month)
                 ->setYear($year)
-                ->setGrossPayable($employee->getSalary()->getAmount())
+                ->setGrossPayable($salary->getAmount())
                 ->setStatus(false)
                 ->setPaymentStatus(false);
             $this->entityManager->persist($payroll);
