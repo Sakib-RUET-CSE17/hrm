@@ -31,6 +31,6 @@ class AttendanceHistoryCrudController extends AbstractCrudController
 
     public function configureCrud(Crud $crud): Crud
     {
-        return $crud->overrideTemplate('crud/detail', 'detail.html.twig');
+        return $crud->overrideTemplate('crud/detail', 'admin/attendanceHistory/detail.html.twig');
     }
 }

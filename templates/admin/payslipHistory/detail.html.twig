@@ -1,0 +1,37 @@
+{% extends '@EasyAdmin/crud/detail.html.twig' %}
+
+{% block detail_fields %}
+	{# {{ dump(entity.fields|slice(3, 1)|first.value) }} #}
+	{# {% dump(entity.fields|slice(1, 1)) %} #}
+	<h6>Year:
+		{{entity.fields|slice(3, 1)|first.value}},
+		{{entity.fields|slice(2,1)|first.value?'Month':'Week'}}:
+		{{entity.fields|slice(1,1)|first.value}}{{entity.fields|slice(2,1)|first.value}}</h6>
+
+	<table class="table table-light">
+			<thead>
+				<tr>
+					<th scope="col">ID</th>
+					<th scope="col">Employee</th>
+					<th scope="col">Salary Before Adjustment</th>
+					<th scope="col">Gross Payable</th>
+					<th scope="col">Payment Method</th>
+					<th scope="col">Approval</th>
+					<th scope="col">Payment Status</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for payroll in entity.fields|slice(4, 1)|first.value %}
+					<tr>
+						<th scope="row">{{ payroll.id }}</th>
+						<td>{{ payroll.employee }}</td>
+						<td>{{ payroll.employee.getSalary.getAmount}}</td>
+						<td>{{ payroll.grossPayable}}</td>
+						<td>{{ payroll.employee.getSalary.getPaymentMethod}}</td>
+						<td class={{payroll.status?'text-success':'text-warning'}}>{{ payroll.status?'Approved':'Pending'}}</td>
+						<td class={{payroll.paymentStatus?'text-success':'text-danger'}}>{{ payroll.paymentStatus?'Paid':'Unpaid'}}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+{% endblock %}

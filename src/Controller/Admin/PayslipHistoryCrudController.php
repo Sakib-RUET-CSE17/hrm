@@ -3,6 +3,9 @@
 namespace App\Controller\Admin;
 
 use App\Entity\PayslipHistory;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
@@ -16,7 +19,7 @@ class PayslipHistoryCrudController extends AbstractCrudController
         return PayslipHistory::class;
     }
 
-    
+
     public function configureFields(string $pageName): iterable
     {
         yield TextField::new('disbursementType');
@@ -26,14 +29,14 @@ class PayslipHistoryCrudController extends AbstractCrudController
         yield AssociationField::new('payrolls')->setFormTypeOption("by_reference", false);
     }
 
-    // public function configureActions(Actions $actions): Actions
-    // {
-    //     $actions->add(Crud::PAGE_INDEX, Action::DETAIL);
-    //     return $actions;
-    // }
+    public function configureActions(Actions $actions): Actions
+    {
+        $actions->add(Crud::PAGE_INDEX, Action::DETAIL);
+        return $actions;
+    }
 
-    // public function configureCrud(Crud $crud): Crud
-    // {
-    //     return $crud->overrideTemplate('crud/detail', 'detail.html.twig');
-    // }
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud->overrideTemplate('crud/detail', 'admin/payslipHistory/detail.html.twig');
+    }
 }
