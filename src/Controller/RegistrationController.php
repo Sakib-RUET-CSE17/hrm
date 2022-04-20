@@ -32,7 +32,7 @@ class RegistrationController extends AbstractController
                 )
             );
 
-            $user->setRoles([
+            $user->setRoles([ //initially set roles to admin & user
                 'ROLE_ADMIN',
             ]);
 
