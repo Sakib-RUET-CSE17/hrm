@@ -3,8 +3,10 @@
 namespace App\Command;
 
 use App\Entity\Payroll;
+use App\Entity\PayslipHistory;
 use App\Repository\EmployeeRepository;
 use App\Repository\PayrollRepository;
+use App\Repository\PayslipHistoryRepository;
 use App\Repository\SalaryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
@@ -18,15 +20,16 @@ class PaySlipGenerateCommandMonthly extends Command
 {
     // private $employeeRepository;
     private $salaryRepository;
-    private $payrollRepository;
+    private $payslipHistoryRepository;
+    // private $payrollRepository;
     private $entityManager;
 
     protected static $defaultName = 'app:payslip:generateMonth';
 
-    public function __construct(SalaryRepository $salaryRepository, EntityManagerInterface $entityManager, PayrollRepository $payrollRepository)
+    public function __construct(SalaryRepository $salaryRepository, EntityManagerInterface $entityManager, PayslipHistoryRepository $payslipHistoryRepository)
     {
+        $this->payslipHistoryRepository = $payslipHistoryRepository;
         $this->salaryRepository = $salaryRepository;
-        $this->payrollRepository = $payrollRepository;
         $this->entityManager = $entityManager;
         parent::__construct();
     }
@@ -46,8 +49,6 @@ class PaySlipGenerateCommandMonthly extends Command
 
         // if ($input->getOption('dry-run')) {
         // $io->note('Dry mode enabled');
-
-        $payrolls = $this->payrollRepository->findAll();
         $month = $input->getArgument('month');
         if (!$month) {
             $month = date('m');
@@ -56,30 +57,36 @@ class PaySlipGenerateCommandMonthly extends Command
         if (!$year) {
             $year = date('Y');
         }
-        if (isset($payrolls[0])) {
-            foreach ($payrolls as $payroll) {
-                if ($payroll->getEmployee()->getSalary()->getDisbursementType() == 'monthly' && $payroll->getMonth() == $month && $payroll->getYear() == $year) {
-                    $io->error(sprintf("Already Generated for month %d and year %d!\n
+        $payslipHistory = $this->payslipHistoryRepository->findBy(['disbursementType' => 'monthly', 'month' => $month, 'year' => $year]);
+        if (isset($payslipHistory[0])) {
+            $io->error(sprintf("Already Generated for month %d and year %d!\n
                     Inserted 0 employees payslip.", $month, $year));
-                    return 0;
-                }
-            }
+            return 0;
         }
 
         $salaries = $this->salaryRepository->findBy(['disbursementType' => 'monthly']);
         $count = count($salaries);
+        $payslipHistory = new PayslipHistory();
+        $payslipHistory->setDisbursementType('monthly')
+            ->setMonth($month)
+            ->setYear($year);
+        $this->entityManager->persist($payslipHistory);
 
         foreach ($salaries as $salary) {
             $employee = $salary->getEmployee();
             $payroll = new Payroll();
+
             $payroll->setEmployee($employee)
                 ->setMonth($month)
                 ->setYear($year)
                 ->setGrossPayable($salary->getAmount())
                 ->setStatus(false)
-                ->setPaymentStatus(false);
+                ->setPaymentStatus(false)
+                ->setPayslipHistory($payslipHistory);
             $this->entityManager->persist($payroll);
             $this->entityManager->flush();
+
+            $this->entityManager->persist($payslipHistory);
         }
 
         $io->success(sprintf('Inserted "%d" employees payslip.', $count));
