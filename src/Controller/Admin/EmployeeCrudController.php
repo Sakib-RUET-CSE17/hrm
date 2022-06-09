@@ -22,6 +22,7 @@ class EmployeeCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         yield TextField::new('name');
+        yield AssociationField::new('admin','User');
 
         yield ImageField::new('profilePictureFilename')
             ->setBasePath('/images')
