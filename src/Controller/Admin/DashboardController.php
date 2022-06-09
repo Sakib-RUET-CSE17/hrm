@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Admin;
 use App\Entity\Attendance;
 use App\Entity\AttendanceHistory;
 use App\Entity\Designation;
@@ -59,5 +60,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Payslip History', 'fas fa-clipboard-check', PayslipHistory::class);
         yield MenuItem::linkToCrud('Attendances', 'fas fa-calendar', Attendance::class);
         yield MenuItem::linkToCrud('Attendance History', 'fas fa-calendar', AttendanceHistory::class);
+        yield MenuItem::linkToCrud('Users', 'fas fa-users', Admin::class);
     }
 }

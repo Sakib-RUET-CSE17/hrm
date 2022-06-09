@@ -49,7 +49,7 @@ var uiConfig = {
                 // console.log(authResult);
                 // thnew Error('error getting')
                 // Send token to your backend via HTTPS
-                location.replace(`/firebase_google_auth/${idToken}/${authResult.user.email}`);
+                location.replace(`/firebase_auth/${idToken}/${authResult.user.email}`);
             }).catch(function (error) {
                 console.log(error.message);
             });

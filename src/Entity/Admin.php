@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: AdminRepository::class)]
 #[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')]
-class Admin implements UserInterface, PasswordAuthenticatedUserInterface
+class Admin implements UserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -23,8 +23,11 @@ class Admin implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'json')]
     private $roles = [];
 
-    #[ORM\Column(type: 'string')]
-    private $password;
+    #[ORM\OneToOne(mappedBy: 'admin', targetEntity: Employee::class, cascade: ['persist', 'remove'])]
+    private $employee;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $firebaseUid;
 
     public function getId(): ?int
     {
@@ -78,26 +81,45 @@ class Admin implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @see PasswordAuthenticatedUserInterface
-     */
-    public function getPassword(): string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    /**
      * @see UserInterface
      */
     public function eraseCredentials()
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getEmployee(): ?Employee
+    {
+        return $this->employee;
+    }
+
+    public function setEmployee(?Employee $employee): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($employee === null && $this->employee !== null) {
+            $this->employee->setAdmin(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($employee !== null && $employee->getAdmin() !== $this) {
+            $employee->setAdmin($this);
+        }
+
+        $this->employee = $employee;
+
+        return $this;
+    }
+
+    public function getFirebaseUid(): ?string
+    {
+        return $this->firebaseUid;
+    }
+
+    public function setFirebaseUid(?string $firebaseUid): self
+    {
+        $this->firebaseUid = $firebaseUid;
+
+        return $this;
     }
 }

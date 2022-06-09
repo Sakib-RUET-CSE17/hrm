@@ -51,6 +51,9 @@ class Employee
     #[ORM\ManyToOne(targetEntity: Designation::class, inversedBy: 'employees')]
     private $designation;
 
+    #[ORM\OneToOne(inversedBy: 'employee', targetEntity: Admin::class, cascade: ['persist', 'remove'])]
+    private $admin;
+
     public function __construct()
     {
         $this->attendances = new ArrayCollection();
@@ -236,6 +239,18 @@ class Employee
     public function setDesignation(?Designation $designation): self
     {
         $this->designation = $designation;
+
+        return $this;
+    }
+
+    public function getAdmin(): ?Admin
+    {
+        return $this->admin;
+    }
+
+    public function setAdmin(?Admin $admin): self
+    {
+        $this->admin = $admin;
 
         return $this;
     }

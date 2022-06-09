@@ -1,10 +1,10 @@
 const firebaseConfig = {
-    apiKey: "AIzaSyDcoTuVkB14TGCiIzq_gUJCcB2fdzH6nJM",
-    authDomain: "mcmstudio-live.firebaseapp.com",
-    projectId: "mcmstudio-live",
-    storageBucket: "mcmstudio-live.appspot.com",
-    messagingSenderId: "1097705597753",
-    appId: "1:1097705597753:web:78857372ece9d026d416e8"
+    apiKey: "AIzaSyATurGmCsKJ3HvxDoEaeQOMguHUPoJicII",
+    authDomain: "hrm-public-cef61.firebaseapp.com",
+    projectId: "hrm-public-cef61",
+    storageBucket: "hrm-public-cef61.appspot.com",
+    messagingSenderId: "302747101376",
+    appId: "1:302747101376:web:2609a6b61b10ded8d2e525"
 };
 
 export default firebaseConfig;
