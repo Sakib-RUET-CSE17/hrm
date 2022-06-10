@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
+
 // existing color variable which being overriden( there we override default variable )
 $primary: #EF3947;
 $secondary: #1B1C27;
@@ -15,12 +16,12 @@ $headings-line-height: 1.5;
 $headings-font-weight: 700;
 $headings-color: #FFFFFF;
 
-$h1-font-size: 2.25rem;  // 36px
-$h2-font-size: 2rem;     // 32px
-$h3-font-size: 1.75rem;  // 28px
-$h4-font-size: 1.5rem;   // 24px
+$h1-font-size: 2.25rem; // 36px
+$h2-font-size: 2rem; // 32px
+$h3-font-size: 1.75rem; // 28px
+$h4-font-size: 1.5rem; // 24px
 $h5-font-size: 1.125rem; // 18px
-$h6-font-size: 1rem;     // 16px
+$h6-font-size: 1rem; // 16px
 
 $paragraph-margin-bottom: 0px;
 
@@ -49,7 +50,7 @@ $grid-breakpoints: (
   lg: 992px,
   xl: 1200px,
   xxl: 1400px,
-) !default;
+  ) !default;
 
 
 $container-max-widths: (
@@ -58,18 +59,19 @@ $container-max-widths: (
   lg: 960px,
   xl: 1140px,
   xxl: 1320px,
-) !default;
+  ) !default;
 // import bootstrap responsible file for adding custom color with existing
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/mixins";
 @import "~bootstrap/scss/variables";
 
-$theme-colors:map-merge($theme-colors, (
-  "black-russian":#222431,
-  "mcm-white": #FFFFFF
-));
+$theme-colors: map-merge($theme-colors, ("black-russian":#222431,
+      "mcm-white": #FFFFFF)
+);
 
 @import "~bootstrap/scss/bootstrap";
 @import "components/common.scss";
 @import "components/signup.scss";
 @import "components/streaming_profile.scss";
+@import '@fortawesome/fontawesome-free/css/all.css';
+// @import '@fontsource/roboto-condensed';
