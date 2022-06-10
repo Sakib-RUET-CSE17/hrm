@@ -1,20 +1,29 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AttendanceController!{% endblock %}
+{% block title %}Hello AttendanceController!
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/sakib/web/hrm/src/Controller/AttendanceController.php'|file_link(0) }}">src/Controller/AttendanceController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/sakib/web/hrm/templates/attendance/index.html.twig'|file_link(0) }}">templates/attendance/index.html.twig</a></code></li>
-    </ul>
-</div>
+	<div class="container">
+		<h6>Attendances ✅</h6>
+		<table class="table table-light">
+			<thead>
+				<tr>
+					<th scope="col">Date</th>
+					<th scope="col">Entry</th>
+					<th scope="col">Leave</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for attendance in attendances %}
+					<tr>
+						<th scope="row">{{ attendance.attendanceHistory.date|date('d-m-Y-D') }}</th>
+						<td>{{ attendance.entryTime|date('h:i a') }}</td>
+						<td>{{ attendance.leaveTime?attendance.leaveTime|date('h:i a'):'--' }}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
 {% endblock %}
