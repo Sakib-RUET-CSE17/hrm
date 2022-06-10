@@ -73,5 +73,6 @@ $theme-colors: map-merge($theme-colors, ("black-russian":#222431,
 @import "components/common.scss";
 @import "components/signup.scss";
 @import "components/streaming_profile.scss";
+@import "components/footer.scss";
 @import '@fortawesome/fontawesome-free/css/all.css';
 // @import '@fontsource/roboto-condensed';
