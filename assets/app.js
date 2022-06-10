@@ -31,6 +31,12 @@ var uiConfig = {
     signInOptions: [
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
         firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+        firebase.auth.GithubAuthProvider.PROVIDER_ID,
+        firebase.auth.EmailAuthProvider.PROVIDER_ID,
+        {
+            provider: 'phone',
+            defaultCountry: 'BD',
+        }
     ],
     // tosUrl and privacyPolicyUrl accept either url string or a callback
     // function.
@@ -49,7 +55,7 @@ var uiConfig = {
                 // console.log(authResult);
                 // thnew Error('error getting')
                 // Send token to your backend via HTTPS
-                location.replace(`/firebase_auth/${idToken}/${authResult.user.email}`);
+                location.replace(`/firebase_auth/${idToken}/${authResult.user.email || authResult.user.phoneNumber}`);
             }).catch(function (error) {
                 console.log(error.message);
             });
