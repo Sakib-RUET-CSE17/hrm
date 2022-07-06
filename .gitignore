@@ -1,6 +1,6 @@
 /public/images
 /public/spy
-/startCmd.sh
+/public/audit.log
 
 ###> symfony/framework-bundle ###
 /.env.local

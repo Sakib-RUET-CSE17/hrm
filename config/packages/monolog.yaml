@@ -1,6 +1,13 @@
 monolog:
+    handlers:
+        audit:
+            type: stream
+            path: "%kernel.logs_dir%/audit.log"
+            channels: ["audit"]
+
     channels:
         - deprecation # Deprecations are logged in the dedicated "deprecation" channel when it exists
+        - audit
 
 when@dev:
     monolog:
