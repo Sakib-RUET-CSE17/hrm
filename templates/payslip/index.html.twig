@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PayslipController!
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<h6>Payrolls ✅</h6>
+		<table class="table table-light">
+			<thead>
+				<tr>
+					<th scope="col">Disbursement Type</th>
+					<th scope="col">Week</th>
+					<th scope="col">Month</th>
+					<th scope="col">Year</th>
+					<th scope="col">Salary Before Adjustment</th>
+					<th scope="col">Gross Payable</th>
+					<th scope="col">Payment Method</th>
+					<th scope="col">Approval</th>
+					<th scope="col">Payment Status</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for payroll in payrolls %}
+					<tr>
+						<th scope="row">{{ payroll.payslipHistory.disbursementType|default('-') }}</th>
+						<td>{{ payroll.week|default('-') }}</td>
+						<td>{{ payroll.month|default('-') }}</td>
+						<td>{{ payroll.year|default('-') }}</td>
+						<td>{{ payroll.employee.salary|default('-') }}</td>
+						<td>{{ payroll.grossPayable|default('-') }}</td>
+						<td>{{ payroll.employee.salary.paymentMethod|default('-') }}</td>
+						<td class={{payroll.status ?'text-success':'text-warning'}}>{{ payroll.status ?'Approved':'Pending'}}</td>
+						<td class={{payroll.paymentStatus ?'text-success':'text-danger'}}>{{ payroll.paymentStatus ?'Paid':'Unpaid'}}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}
