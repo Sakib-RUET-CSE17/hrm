@@ -1,6 +1,7 @@
 /public/images
 /public/spy
 /public/audit.log
+/audit.log
 
 ###> symfony/framework-bundle ###
 /.env.local

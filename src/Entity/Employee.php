@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Log\LogAware;
 use App\Repository\EmployeeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 
 #[ORM\Entity(repositoryClass: EmployeeRepository::class)]
-class Employee
+class Employee implements LogAware
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

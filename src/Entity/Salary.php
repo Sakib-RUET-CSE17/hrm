@@ -2,12 +2,13 @@
 
 namespace App\Entity;
 
+use App\Log\LogAware;
 use App\Repository\SalaryRepository;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SalaryRepository::class)]
-class Salary
+class Salary implements LogAware
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
+use App\Log\LogAware;
 use App\Repository\PayrollRepository;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\PropertyAccess\PropertyPath;
 
 #[ORM\Entity(repositoryClass: PayrollRepository::class)]
-class Payroll
+class Payroll implements LogAware
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

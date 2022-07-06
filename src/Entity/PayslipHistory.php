@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
+use App\Log\LogAware;
 use App\Repository\PayslipHistoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PayslipHistoryRepository::class)]
-class PayslipHistory
+class PayslipHistory implements LogAware
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

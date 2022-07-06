@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
+use App\Log\LogAware;
 use App\Repository\DesignationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: DesignationRepository::class)]
-class Designation
+class Designation implements LogAware
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

@@ -59,11 +59,10 @@ class DatabaseActivitySubscriber implements EventSubscriberInterface
 
         // if this subscriber only applies to certain entity types,
         // add some code to check the entity type as early as possible
-        // dd($entity);
-        // if (!$entity instanceof LogAware) {
-        // dd($entity);
-        //     return;
-        // }
+        if (!$entity instanceof LogAware) {
+            // dd($entity);
+            return;
+        }
 
         $user = $this->tokenStorage->getToken() ? $this->tokenStorage->getToken()->getUser() : null;
         $date = date('d/m/Y H:i:s');
@@ -90,10 +89,10 @@ class DatabaseActivitySubscriber implements EventSubscriberInterface
             $logMessage .= ' ]';
         }
 
-        $logMessage .= ' from IP: ' . $this->requestStack->getMainRequest()->getClientIp()
+        $logMessage .= ' from IP: ' . $this->requestStack->getMainRequest()?->getClientIp()
             . "\n";
 
-        $context['ip'] = $this->requestStack->getMainRequest()->getClientIp();
+        $context['ip'] = $this->requestStack->getMainRequest()?->getClientIp();
 
         // $this->auditLogger->info($logMessage, $context);
 

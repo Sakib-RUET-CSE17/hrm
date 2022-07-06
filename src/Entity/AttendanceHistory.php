@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
+use App\Log\LogAware;
 use App\Repository\AttendanceHistoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AttendanceHistoryRepository::class)]
-class AttendanceHistory
+class AttendanceHistory implements LogAware
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

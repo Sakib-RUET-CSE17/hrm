@@ -2,12 +2,13 @@
 
 namespace App\Entity;
 
+use App\Log\LogAware;
 use App\Repository\AttendanceRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: AttendanceRepository::class)]
-class Attendance
+class Attendance implements LogAware
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
