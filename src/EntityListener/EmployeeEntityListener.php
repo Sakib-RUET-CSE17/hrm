@@ -23,7 +23,7 @@ class EmployeeEntityListener
         $employee->getAdmin()?->setRoles($roles);
 
         $mobile = $employee->getMobile();
-        $smsResult = $this->bulkSmsBd->sendSms($mobile, 'I love u');
+        // $smsResult = $this->bulkSmsBd->sendSms($mobile, 'testing');
         // dd($smsResult);
     }
 }
