@@ -67,7 +67,7 @@ class DatabaseActivitySubscriber implements EventSubscriberInterface
         $user = $this->tokenStorage->getToken() ? $this->tokenStorage->getToken()->getUser() : null;
         $date = date('d/m/Y H:i:s');
 
-        $logMessage = ' User ' . $user . ' '
+        $logMessage = $date . ' User ' . $user . ' '
             . $action . ' '
             . get_class($entity) . ' information'
             . ' of id: ' . $entity->getId();
@@ -78,12 +78,19 @@ class DatabaseActivitySubscriber implements EventSubscriberInterface
             'entity' => $entity,
             'id' => $entity->getId(),
         ];
-
+        // dd(date('Y-m-d H:i:s'));
         if ($action == 'update') {
             $logMessage .= ' [';
             $changedFields = $args->getEntityChangeSet();
             $context['fields'] = $changedFields;
+            // dd(json_encode($changedFields));
             foreach ($changedFields as $field => $changes) {
+                if (is_array($changes[0])) {
+                    $changes[0] = json_encode($changes[0]);
+                }
+                if (is_array($changes[1])) {
+                    $changes[1] = json_encode($changes[1]);
+                }
                 $logMessage .= ' ' . $field . '(' . $changes[0] . ' > ' . $changes[1] . ')';
             }
             $logMessage .= ' ]';
