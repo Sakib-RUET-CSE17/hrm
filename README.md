@@ -21,3 +21,7 @@ This project is about Human Resource Management (HRM) and is a full stack projec
 ## How to Install and Run
 
 Install PHP, npm and Symfony Environment. Then run ```start.sh``` shell command to install and configure the application.
+
+### Presentation Slide
+
+https://docs.google.com/presentation/d/1Rs-nIOzrBYbPkNBh3VTnYKuhfXLiFToBqgu9qaLr_iw/edit?usp=sharing
