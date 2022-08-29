@@ -34,7 +34,7 @@ class PayrollEntityListener
             $message .= 'week ' . $week;
         }
         $date = new \DateTime('now', new DateTimeZone('Asia/Dhaka'));
-        $date = $date->format('d-m-Y H:m:s');
+        $date = $date->format('d-m-Y H:i:s');
         // dd($date);
         $message .= '/' . $year . ' has been paid successfully on ' . $date . '. Amount: ' . $amount . ', Payment Method: ' . $paymentMethod;
         // dd($message);
